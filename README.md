@@ -1,6 +1,6 @@
 # justise
 
-<img src="logo/justise.png" align="center" />
+<img src="docs/logo/justise.png" align="center" />
 
 `just` is super simple for listing tasks, and I use it as the entry point to a
 project. `mise` handles:
@@ -47,9 +47,7 @@ just = "latest"
 description = "Convert mise to just recipe"
 hide = true
 silent = true
-run = '''
-go run .
-'''
+run = "justise"
 ```
 
 ## Usage
@@ -63,4 +61,4 @@ You can also run the conversion manually:
 just justise
 ```
 
-<img src="just_command.png" align="center" />
+<img src="docs/just_tasks.png" align="center" />
