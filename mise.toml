@@ -1,0 +1,52 @@
+[tools]
+go = "latest"
+"go:github.com/badele/justise" = "latest"
+just = "latest"
+
+[tasks.justise]
+description = "Convert mise to just recipe"
+
+hide = true
+silent = true
+
+run = '''
+go run github.com/badele/justise
+'''
+
+[tasks.build]
+description = "Build go binary [Go]"
+
+run = '''
+go build .
+'''
+
+
+[tasks.precommit-install]
+description = "Install pre-commit hooks [precommit]"
+
+run = '''
+pre-commit install
+pre-commit install --hook-type commit-msg
+'''
+
+
+[tasks.check-install]
+description = "Check all pre-commit tests [precommit]"
+
+run = '''
+  pre-commit run --all-files
+'''
+
+[tasks.deploy]
+description = "Deploy a sample application to environment [Go]"
+usage = '''
+arg "<environment>" help="Target environment"
+flag "-v --verbose" help="Enable verbose output"
+flag "--region <region>" help="AWS region" default="us-east-1"
+'''
+run = '''
+echo "Deploying to {{ usage.environment }} in {{ usage.region }}"
+{% if usage.verbose %}
+  echo "Verbose mode enabled"
+{% endif %}
+'''

@@ -1,0 +1,56 @@
+repos:
+  # Go hooks
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v1.0.0-rc.1
+    hooks:
+      # Code formatting
+      - id: go-fmt
+        args: [-w]
+
+      # Code verification
+      - id: go-vet-repo-mod
+
+      # Imports
+      - id: go-imports
+        args: [-w]
+
+      # Tests
+      - id: go-test-repo-mod
+        name: Run Go tests
+        args: [-v, -race, -coverprofile=coverage.txt]
+
+      # Build
+      - id: go-build-repo-mod
+        name: Build project
+
+  # Commit message validation (Conventional Commits)
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.6.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: []
+
+  # General hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # Check YAML syntax
+      - id: check-yaml
+        args: [--unsafe]
+
+      # Check JSON syntax
+      - id: check-json
+
+      # Check for merge conflicts
+      - id: check-merge-conflict
+
+      # Fix end of files
+      - id: end-of-file-fixer
+
+      # Remove trailing whitespace
+      - id: trailing-whitespace
+
+      # Check for large files
+      - id: check-added-large-files
+        args: [--maxkb=1000]
