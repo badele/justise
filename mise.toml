@@ -1,5 +1,6 @@
 [tools]
 go = "latest"
+"go:github.com/badele/godown" = "latest"
 "go:github.com/badele/justise" = "latest"
 just = "latest"
 
