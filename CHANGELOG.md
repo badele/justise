@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/badele/justise/compare/v1.1.0...v1.2.0) (2026-03-26)
+
+
+### Features
+
+* Use mise flag usage command ([#5](https://github.com/badele/justise/issues/5)) ([3d1dfa8](https://github.com/badele/justise/commit/3d1dfa82b05d872e06a7fab4f1fb339b566424ec))
+
 ## [1.1.0](https://github.com/badele/justise/compare/v1.0.0...v1.1.0) (2026-03-26)
 
 
