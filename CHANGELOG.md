@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.0](https://github.com/badele/justise/compare/v1.0.0...v1.1.0) (2026-03-26)
+
+
+### Features
+
+* update documentation ([542163e](https://github.com/badele/justise/commit/542163e5077502c3e286e278e87c3f0230dd0d40))
+* update documentation ([6a1dcd2](https://github.com/badele/justise/commit/6a1dcd28f3bdc280eb8d003d43fc5f31807b3a17))
+* use arguments list instead usage information ([02e30dc](https://github.com/badele/justise/commit/02e30dcce119b43802d43791bf318ce27eceda99))
+* use arguments list instead usage information ([af03ea7](https://github.com/badele/justise/commit/af03ea765d736ab1ddc8a04af196442d4d50fd3e))
+
 ## 1.0.0 (2026-03-14)
 
 
