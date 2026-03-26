@@ -23,6 +23,35 @@ type Task struct {
 	Usage       string   `json:"usage"`
 }
 
+type usageSpecPayload struct {
+	UsageSpec usageSpec `json:"usage_spec"`
+}
+
+type usageSpec struct {
+	Cmd usageCmd `json:"cmd"`
+}
+
+type usageCmd struct {
+	Usage string      `json:"usage"`
+	Args  []usageArg  `json:"args"`
+	Flags []usageFlag `json:"flags"`
+}
+
+type usageArg struct {
+	Name  string `json:"name"`
+	Usage string `json:"usage"`
+	Hide  bool   `json:"hide"`
+}
+
+type usageFlag struct {
+	Name  string    `json:"name"`
+	Usage string    `json:"usage"`
+	Short []string  `json:"short"`
+	Long  []string  `json:"long"`
+	Hide  bool      `json:"hide"`
+	Arg   *usageArg `json:"arg"`
+}
+
 type RenderTask struct {
 	Task
 	CleanDescription string
@@ -32,8 +61,7 @@ type RenderTask struct {
 }
 
 var (
-	groupSuffixRe  = regexp.MustCompile(`^(?s)(.*?)\s*\[([^\[\]]+)\]\s*$`)
-	argumentLineRe = regexp.MustCompile(`^\s+(\S+)\s{2,}`)
+	groupSuffixRe = regexp.MustCompile(`^(?s)(.*?)\s*\[([^\[\]]+)\]\s*$`)
 )
 
 func main() {
@@ -56,7 +84,7 @@ func main() {
 		hasUsage := strings.TrimSpace(task.Usage) != ""
 		usageLine := ""
 		if hasUsage {
-			usageLine = fetchUsageLine(task.Name)
+			usageLine = analyzeCommandInfo(task.Name)
 		}
 		renderTask := RenderTask{
 			Task:             task,
@@ -195,42 +223,89 @@ func splitGroup(description string) (string, string) {
 	return clean, group
 }
 
-func fetchUsageLine(taskName string) string {
-	// Query mise help output for the arguments list.
-	cmd := exec.Command("mise", "run", taskName, "-h")
+func analyzeCommandInfo(taskName string) string {
+	// Query the mise task JSON for arguments and flags.
+	cmd := exec.Command("mise", "task", taskName, "-J")
 	cmd.Env = append(os.Environ(), "NO_COLOR=1", "CLICOLOR=0")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return ""
 	}
 
-	args := []string{}
-	inArguments := false
-	for _, line := range strings.Split(string(output), "\n") {
-		trimmed := strings.TrimSpace(line)
-		if !inArguments {
-			if strings.HasPrefix(trimmed, "Arguments:") {
-				inArguments = true
-			}
-			continue
-		}
-
-		if trimmed == "" {
-			break
-		}
-		if !strings.HasPrefix(line, " ") && !strings.HasPrefix(line, "\t") {
-			break
-		}
-		matches := argumentLineRe.FindStringSubmatch(line)
-		if len(matches) == 2 {
-			args = append(args, matches[1])
-		}
-	}
-	if len(args) == 0 {
+	decoder := json.NewDecoder(bytes.NewReader(output))
+	var payload usageSpecPayload
+	if err := decoder.Decode(&payload); err != nil {
 		return ""
 	}
 
-	return fmt.Sprintf("Usage: %s %s", taskName, strings.Join(args, " "))
+	usageParts := []string{}
+	for _, flag := range payload.UsageSpec.Cmd.Flags {
+		if flag.Hide {
+			continue
+		}
+		usage := renderFlagUsage(flag)
+		if usage != "" {
+			usageParts = append(usageParts, usage)
+		}
+	}
+	for _, arg := range payload.UsageSpec.Cmd.Args {
+		if arg.Hide {
+			continue
+		}
+		usage := renderArgUsage(arg)
+		if usage != "" {
+			usageParts = append(usageParts, usage)
+		}
+	}
+	if len(usageParts) == 0 {
+		fallback := strings.TrimSpace(payload.UsageSpec.Cmd.Usage)
+		if fallback == "" {
+			return ""
+		}
+		usageParts = append(usageParts, fallback)
+	}
+
+	return fmt.Sprintf("Usage: %s %s", taskName, strings.Join(usageParts, " "))
+}
+
+func renderFlagUsage(flag usageFlag) string {
+	usage := strings.TrimSpace(flag.Usage)
+	if usage != "" {
+		return usage
+	}
+
+	name := ""
+	if len(flag.Long) > 0 {
+		name = "--" + flag.Long[0]
+	} else if len(flag.Short) > 0 {
+		name = "-" + flag.Short[0]
+	}
+	if name == "" {
+		return ""
+	}
+
+	if flag.Arg != nil {
+		argUsage := strings.TrimSpace(flag.Arg.Usage)
+		if argUsage == "" && flag.Arg.Name != "" {
+			argUsage = fmt.Sprintf("<%s>", flag.Arg.Name)
+		}
+		if argUsage != "" {
+			name = name + " " + argUsage
+		}
+	}
+
+	return name
+}
+
+func renderArgUsage(arg usageArg) string {
+	usage := strings.TrimSpace(arg.Usage)
+	if usage != "" {
+		return usage
+	}
+	if arg.Name == "" {
+		return ""
+	}
+	return fmt.Sprintf("<%s>", arg.Name)
 }
 
 func renderComment(description, usage string, maxLen int) string {
