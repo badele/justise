@@ -32,7 +32,8 @@ type RenderTask struct {
 }
 
 var (
-	groupSuffixRe = regexp.MustCompile(`^(?s)(.*?)\s*\[([^\[\]]+)\]\s*$`)
+	groupSuffixRe  = regexp.MustCompile(`^(?s)(.*?)\s*\[([^\[\]]+)\]\s*$`)
+	argumentLineRe = regexp.MustCompile(`^\s+(\S+)\s{2,}`)
 )
 
 func main() {
@@ -195,7 +196,7 @@ func splitGroup(description string) (string, string) {
 }
 
 func fetchUsageLine(taskName string) string {
-	// Query mise help output for the usage line.
+	// Query mise help output for the arguments list.
 	cmd := exec.Command("mise", "run", taskName, "-h")
 	cmd.Env = append(os.Environ(), "NO_COLOR=1", "CLICOLOR=0")
 	output, err := cmd.CombinedOutput()
@@ -203,14 +204,33 @@ func fetchUsageLine(taskName string) string {
 		return ""
 	}
 
+	args := []string{}
+	inArguments := false
 	for _, line := range strings.Split(string(output), "\n") {
 		trimmed := strings.TrimSpace(line)
-		if strings.HasPrefix(trimmed, "Usage:") {
-			return trimmed
+		if !inArguments {
+			if strings.HasPrefix(trimmed, "Arguments:") {
+				inArguments = true
+			}
+			continue
+		}
+
+		if trimmed == "" {
+			break
+		}
+		if !strings.HasPrefix(line, " ") && !strings.HasPrefix(line, "\t") {
+			break
+		}
+		matches := argumentLineRe.FindStringSubmatch(line)
+		if len(matches) == 2 {
+			args = append(args, matches[1])
 		}
 	}
+	if len(args) == 0 {
+		return ""
+	}
 
-	return ""
+	return fmt.Sprintf("Usage: %s %s", taskName, strings.Join(args, " "))
 }
 
 func renderComment(description, usage string, maxLen int) string {
