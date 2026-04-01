@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/badele/justise/compare/v1.3.0...v1.4.0) (2026-04-01)
+
+
+### Features
+
+* add crate informations ([#9](https://github.com/badele/justise/issues/9)) ([15dd5b7](https://github.com/badele/justise/commit/15dd5b7495c4edae5b74f93c4f054d6f5e4be09e))
+
 ## [1.3.0](https://github.com/badele/justise/compare/v1.2.0...v1.3.0) (2026-04-01)
 
 
