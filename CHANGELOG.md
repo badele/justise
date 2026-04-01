@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/badele/justise/compare/v1.5.0...v1.6.0) (2026-04-01)
+
+
+### Features
+
+* add manual publication ([#13](https://github.com/badele/justise/issues/13)) ([16e3b39](https://github.com/badele/justise/commit/16e3b39639c81c687558363bd22ea3421cb73f7e))
+
 ## [1.5.0](https://github.com/badele/justise/compare/v1.4.0...v1.5.0) (2026-04-01)
 
 
