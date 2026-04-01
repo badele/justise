@@ -26,6 +26,13 @@ run = '''
  cargo test
 '''
 
+[tasks.publish]
+description = "Publish crate to crates.io [Rust]"
+
+run = '''
+ cargo publish --locked
+'''
+
 
 [tasks.precommit-install]
 description = "Install pre-commit hooks [precommit]"
