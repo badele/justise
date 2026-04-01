@@ -2,6 +2,9 @@
 name = "justise"
 version = "1.3.0"
 edition = "2021"
+license = "AGPL"
+repository = "https://github.com/badele/justise"
+authors = ["Bruno Adelé <brunoadele@gmail.com>"]
 
 [dependencies]
 regex = "1"
