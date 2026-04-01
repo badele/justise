@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/badele/justise/compare/v1.2.0...v1.3.0) (2026-04-01)
+
+
+### Features
+
+* migrate to Rust language ([fc79856](https://github.com/badele/justise/commit/fc79856113bd6638374eabe3b49606324be084bd))
+
 ## [1.2.0](https://github.com/badele/justise/compare/v1.1.0...v1.2.0) (2026-03-26)
 
 
