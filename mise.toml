@@ -1,7 +1,5 @@
 [tools]
-go = "latest"
-"go:github.com/badele/godown" = "latest"
-"go:github.com/badele/justise" = "latest"
+rust = "latest"
 just = "latest"
 
 [tasks.justise]
@@ -11,14 +9,21 @@ hide = true
 silent = true
 
 run = '''
-go run github.com/badele/justise
+ cargo run --quiet
 '''
 
 [tasks.build]
-description = "Build go binary [Go]"
+description = "Build rust binary [Rust]"
 
 run = '''
-go build .
+ cargo build --release
+'''
+
+[tasks.test]
+description = "Run tests [Rust]"
+
+run = '''
+ cargo test
 '''
 
 
@@ -39,7 +44,7 @@ run = '''
 '''
 
 [tasks.deploy]
-description = "Deploy a sample application to environment [Go]"
+description = "Deploy a sample application to environment"
 usage = '''
 arg "<environment>" help="Target environment"
 flag "-v --verbose" help="Enable verbose output"

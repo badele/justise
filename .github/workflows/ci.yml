@@ -19,16 +19,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: "1.25.1"
+      - name: Set up mise
+        uses: jdx/mise-action@v2
+
+      - name: Install tools
+        run: mise install
+
+      - name: Run tests
+        run: mise run test -- --locked
 
       - name: Build
-        run: go build .
+        run: mise run build -- --locked
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: demise
-          path: demise
+          name: justise
+          path: target/release/justise
