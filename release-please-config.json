@@ -1,5 +1,5 @@
 {
-  "release-type": "go",
+  "release-type": "rust",
   "packages": {
     ".": {
       "package-name": "justise",
@@ -9,6 +9,10 @@
         {
           "type": "generic",
           "path": "flake.nix"
+        },
+        {
+          "type": "generic",
+          "path": "Cargo.lock"
         }
       ]
     }
