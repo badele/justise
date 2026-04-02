@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/badele/justise/compare/v1.6.1...v1.6.2) (2026-04-02)
+
+
+### Bug Fixes
+
+* license identifier ([#17](https://github.com/badele/justise/issues/17)) ([1a2f256](https://github.com/badele/justise/commit/1a2f2566e7a4df312788fcd6577b2ddac6867647))
+
 ## [1.6.1](https://github.com/badele/justise/compare/v1.6.0...v1.6.1) (2026-04-01)
 
 
