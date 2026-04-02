@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.4](https://github.com/badele/justise/compare/v1.6.3...v1.6.4) (2026-04-02)
+
+
+### Bug Fixes
+
+* update event condition ([#21](https://github.com/badele/justise/issues/21)) ([532acba](https://github.com/badele/justise/commit/532acbae4f45e08d87cb8a352dbc5b63bdf5187e))
+
 ## [1.6.3](https://github.com/badele/justise/compare/v1.6.2...v1.6.3) (2026-04-02)
 
 
