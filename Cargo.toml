@@ -3,7 +3,7 @@ name = "justise"
 description = "Bring justice to your mise tasks by converting them to just recipes "
 version = "1.6.1"
 edition = "2021"
-license = "AGPL"
+license = "AGPL-3.0-or-later"
 repository = "https://github.com/badele/justise"
 authors = ["Bruno Adelé <brunoadele@gmail.com>"]
 
