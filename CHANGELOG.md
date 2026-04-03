@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.6](https://github.com/badele/justise/compare/v1.6.5...v1.6.6) (2026-04-03)
+
+
+### Bug Fixes
+
+* release please ([#25](https://github.com/badele/justise/issues/25)) ([46f0f38](https://github.com/badele/justise/commit/46f0f38dbe8e293d5ac2717469717f644ab204d6))
+
 ## [1.6.5](https://github.com/badele/justise/compare/v1.6.4...v1.6.5) (2026-04-02)
 
 
