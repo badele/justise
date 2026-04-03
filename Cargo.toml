@@ -1,7 +1,7 @@
 [package]
 name = "justise"
 description = "Bring justice to your mise tasks by converting them to just recipes "
-version = "1.6.6"
+version = "1.6.7"
 edition = "2021"
 license = "AGPL-3.0-or-later"
 repository = "https://github.com/badele/justise"

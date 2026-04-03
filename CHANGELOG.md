@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.7](https://github.com/badele/justise/compare/v1.6.6...v1.6.7) (2026-04-03)
+
+
+### Bug Fixes
+
+* add missing cargo registry token ([#27](https://github.com/badele/justise/issues/27)) ([a726ab4](https://github.com/badele/justise/commit/a726ab421ac9196b0cde8d21ddddf186d25a1b3b))
+
 ## [1.6.6](https://github.com/badele/justise/compare/v1.6.5...v1.6.6) (2026-04-03)
 
 
