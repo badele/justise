@@ -46,4 +46,6 @@ jobs:
         run: mise install
 
       - name: Publish crate
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_TOKEN }}
         run: mise run publish
